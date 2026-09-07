@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Gems live in a named volume, so a Gemfile change only needs an install, not a rebuild.
+bundle check || bundle install
+
+# A container killed without a graceful stop leaves this behind and Puma refuses to boot.
+rm -f tmp/pids/server.pid
+
+if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+  ./bin/rails db:prepare
+fi
+
+exec "${@}"

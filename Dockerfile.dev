@@ -1,0 +1,37 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
+# Development image. Production is built from ./Dockerfile (Kamal).
+# Used by compose.yml: docker compose up
+
+# Keep RUBY_VERSION in sync with .ruby-version
+ARG RUBY_VERSION=3.3.4
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+WORKDIR /rails
+
+# Only what the current Gemfile needs to build its native gems (pg, psych, debug).
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential libpq-dev libyaml-dev pkg-config && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+ENV RAILS_ENV="development" \
+    BUNDLE_PATH="/usr/local/bundle"
+
+# Match the host user so files written into the bind mount stay editable.
+ARG UID=1000
+ARG GID=1000
+RUN (getent group $GID > /dev/null || groupadd --gid $GID rails) && \
+    useradd rails --uid $UID --gid $GID --create-home --shell /bin/bash && \
+    chown -R $UID:$GID /rails "${BUNDLE_PATH}"
+
+USER $UID:$GID
+
+COPY --chown=$UID:$GID Gemfile Gemfile.lock ./
+RUN bundle install
+
+ENTRYPOINT ["/rails/bin/docker-dev-entrypoint"]
+
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
