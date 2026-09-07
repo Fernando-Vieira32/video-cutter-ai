@@ -1,0 +1,43 @@
+name: video-cutter-ai
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-video_cutter_ai}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-video_cutter_ai}
+      POSTGRES_DB: video_cutter_ai_development
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME:-video_cutter_ai}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    environment:
+      DB_HOST: db
+      DB_USERNAME: ${DB_USERNAME:-video_cutter_ai}
+      DB_PASSWORD: ${DB_PASSWORD:-video_cutter_ai}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    volumes:
+      - .:/rails
+      - bundle:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+    # Keeps the `debug` gem usable via `docker attach`.
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres:
+  bundle:
