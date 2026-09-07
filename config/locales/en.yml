@@ -29,3 +29,33 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      video:
+        file: "Video"
+    errors:
+      models:
+        video:
+          attributes:
+            file:
+              blank: "must be selected"
+              invalid_format: "must be one of MP4, MOV, WebM, MKV or AVI"
+              too_large: "must be smaller than %{max_size}"
+
+  videos:
+    new:
+      title: "Video Cutter AI"
+      subtitle: "Upload a video and we will look for its cut points."
+      placeholder: "Drag a video here or click to choose one"
+      hint: "MP4, MOV, WebM, MKV or AVI, up to %{max_size}."
+      submit: "Process video"
+    show:
+      title: "Video uploaded"
+      subtitle: "The file is stored and ready for the processing pipeline."
+      name: "File"
+      size: "Size"
+      format: "Format"
+      uploaded_at: "Uploaded at"
+      pending: "Processing is not available yet — it arrives in the next step."
+      back: "Upload another video"
