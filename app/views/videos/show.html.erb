@@ -1,0 +1,26 @@
+<% content_for :title, @video.file.filename.to_s %>
+
+<main class="page">
+  <header class="page__header">
+    <h1 class="page__title"><%= t(".title") %></h1>
+    <p class="page__subtitle"><%= t(".subtitle") %></p>
+  </header>
+
+  <dl class="video">
+    <dt><%= t(".name") %></dt>
+    <dd><%= @video.file.filename %></dd>
+
+    <dt><%= t(".size") %></dt>
+    <dd><%= number_to_human_size(@video.file.byte_size) %></dd>
+
+    <dt><%= t(".format") %></dt>
+    <dd><%= @video.file.content_type %></dd>
+
+    <dt><%= t(".uploaded_at") %></dt>
+    <dd><%= l(@video.created_at, format: :long) %></dd>
+  </dl>
+
+  <p class="video__pending"><%= t(".pending") %></p>
+
+  <%= link_to t(".back"), root_path, class: "video__back" %>
+</main>

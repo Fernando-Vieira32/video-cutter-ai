@@ -1,0 +1,40 @@
+<% content_for :title, t(".title") %>
+
+<main class="page">
+  <header class="page__header">
+    <h1 class="page__title"><%= t(".title") %></h1>
+    <p class="page__subtitle"><%= t(".subtitle") %></p>
+  </header>
+
+  <%= form_with model: @video, class: "upload", data: { controller: "video-upload" } do |form| %>
+    <% if @video.errors.any? %>
+      <ul class="upload__errors">
+        <% @video.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <label class="upload__dropzone"
+           data-video-upload-target="dropzone"
+           data-action="dragover->video-upload#highlight dragleave->video-upload#unhighlight drop->video-upload#drop">
+      <%= form.file_field :file,
+            accept: Video::ALLOWED_CONTENT_TYPES.join(","),
+            class: "upload__input",
+            data: { video_upload_target: "input", action: "video-upload#select" } %>
+
+      <span class="upload__placeholder" data-video-upload-target="placeholder">
+        <%= t(".placeholder") %>
+      </span>
+
+      <span class="upload__file" data-video-upload-target="file" hidden>
+        <span class="upload__file-name" data-video-upload-target="name"></span>
+        <span class="upload__file-size" data-video-upload-target="size"></span>
+      </span>
+    </label>
+
+    <p class="upload__hint"><%= t(".hint", max_size: number_to_human_size(Video::MAX_FILE_SIZE)) %></p>
+
+    <%= form.submit t(".submit"), class: "upload__submit", disabled: true, data: { video_upload_target: "submit" } %>
+  <% end %>
+</main>

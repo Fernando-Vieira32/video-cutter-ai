@@ -1,0 +1,127 @@
+Estamos começando o desenvolvimento de um sistema monolítico em Ruby on Rails para análise de vídeos e identificação automática de pontos de corte.
+
+O projeto já foi criado, está dockerizado e versionado no GitHub.
+
+Stack e premissas:
+
+* Ruby on Rails
+* Monolito
+* PostgreSQL
+* Hotwire/Stimulus para interações no frontend
+* Não utilizar React, Vue ou outro framework SPA
+* A aplicação deve continuar seguindo as convenções do Rails
+* Testes devem ser escritos com RSpec
+* Quero manter o projeto simples, modular e fácil de evoluir
+
+Nesta primeira etapa NÃO vamos implementar processamento de vídeo, FFmpeg, Whisper, Ollama ou qualquer IA.
+
+### Objetivo desta etapa
+
+Criar a primeira tela da aplicação, onde o usuário poderá:
+
+1. Selecionar um arquivo de vídeo do computador.
+2. Visualizar o nome e informações básicas do arquivo selecionado.
+3. Ter um botão "Processar vídeo".
+4. O botão deve ficar desabilitado enquanto nenhum vídeo estiver selecionado.
+5. Ao selecionar um vídeo, a interface deve fornecer feedback visual de que o arquivo foi selecionado.
+6. O formulário deve aceitar somente formatos de vídeo compatíveis.
+7. A interface deve funcionar sem recarregar a página ao selecionar o arquivo, utilizando Stimulus quando necessário.
+
+Por enquanto, o botão "Processar vídeo" NÃO precisa executar o processamento real. Apenas prepare a estrutura necessária para que, em uma próxima etapa, possamos conectar o pipeline de processamento.
+
+### Arquitetura
+
+Antes de alterar qualquer coisa:
+
+1. Analise a estrutura atual do projeto.
+2. Identifique a versão do Rails e as gems já instaladas.
+3. Verifique como o Docker está configurado.
+4. Não altere configurações existentes sem necessidade.
+5. Siga as convenções existentes do projeto.
+
+Para o upload, utilize a solução idiomática do Rails. Se Active Storage ainda não estiver configurado, avalie se ele é apropriado para esta funcionalidade e configure-o de forma simples e compatível com o ambiente atual.
+
+Crie uma estrutura que posteriormente permita termos algo como:
+
+Video
+└── arquivo original
+
+e futuramente:
+
+Video
+├── transcript
+├── análise
+├── candidatos a cortes
+└── clips gerados
+
+Não implemente essas funcionalidades agora.
+
+### Frontend
+
+Crie uma interface limpa e simples.
+
+A tela deve conter:
+
+* título da aplicação
+* área para selecionar/arrastar o vídeo
+* nome do arquivo selecionado
+* tamanho do arquivo
+* botão "Processar vídeo"
+
+Utilize Stimulus apenas onde ele realmente for necessário.
+
+Não adicione bibliotecas frontend desnecessárias.
+
+### Validações
+
+Implemente validações apropriadas para o arquivo de vídeo.
+
+Considere:
+
+* presença do arquivo
+* tipo MIME/formato
+* tamanho máximo razoável
+
+Não invente uma arquitetura complexa para isso.
+
+### Testes
+
+Crie os testes RSpec necessários para esta primeira funcionalidade.
+
+No mínimo, cubra:
+
+* acesso à página
+* seleção/envio de um vídeo válido
+* rejeição de arquivo inválido
+* validação de presença do vídeo
+* comportamento esperado quando nenhum vídeo está selecionado
+
+Se houver JavaScript relevante no Stimulus que seja difícil de testar com RSpec, mantenha a lógica simples e teste principalmente o comportamento observável da aplicação.
+
+### Importante
+
+Não avance para funcionalidades futuras.
+
+Não implemente:
+
+* FFmpeg
+* Whisper
+* Ollama
+* LLM
+* análise de cenas
+* geração de cortes
+* processamento assíncrono
+* Sidekiq
+
+Essas serão etapas posteriores.
+
+Ao terminar:
+
+1. Execute a suíte de testes.
+2. Verifique que tudo passa.
+3. Verifique que a aplicação funciona dentro do Docker.
+4. Mostre quais arquivos foram criados/alterados.
+5. Explique resumidamente a implementação.
+6. Não faça commit automaticamente.
+
+Quero que esta etapa resulte em uma primeira tela funcional e bem estruturada, servindo como base para as próximas etapas do projeto.

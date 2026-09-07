@@ -8,3 +8,162 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+:root {
+  --surface: #0f1115;
+  --surface-raised: #171a21;
+  --border: #272c36;
+  --text: #e8eaed;
+  --text-muted: #9aa3b2;
+  --accent: #4f8cff;
+  --danger: #ff6b6b;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.page__header {
+  margin-bottom: 2rem;
+}
+
+.page__title {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.page__subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload__errors {
+  margin: 0;
+  padding: 0.75rem 1rem 0.75rem 2rem;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  color: var(--danger);
+}
+
+.upload__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 12rem;
+  padding: 2rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.upload__dropzone:hover,
+.upload__dropzone--dragging {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface-raised));
+}
+
+/* Kept in the accessibility tree: the label above forwards clicks to it. */
+.upload__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.upload__placeholder {
+  color: var(--text-muted);
+}
+
+.upload__file {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.upload__file-name {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.upload__file-size {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.upload__hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.upload__submit {
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload__submit:disabled {
+  background: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.video {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+}
+
+.video dt {
+  color: var(--text-muted);
+}
+
+.video dd {
+  margin: 0;
+  word-break: break-all;
+}
+
+.video__pending {
+  color: var(--text-muted);
+}
+
+.video__back {
+  color: var(--accent);
+}

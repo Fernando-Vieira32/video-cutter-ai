@@ -17,7 +17,7 @@ Common commands:
 ```sh
 docker compose exec web ./bin/rails console
 docker compose exec web ./bin/rails db:migrate
-docker compose exec web ./bin/rails test
+docker compose exec web bundle exec rspec
 docker compose exec web ./bin/rubocop
 docker compose exec db psql -U video_cutter_ai video_cutter_ai_development
 
