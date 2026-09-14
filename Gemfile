@@ -8,7 +8,7 @@ gem "propshaft"
 gem "pg", "~> 1.1"
 # json 3 dropped JSON.generate's quirks_mode, which ActiveSupport 8.0 still passes
 # when it serializes the session cookie.
-gem "json", "~> 2.7"
+gem "json", "~> 3.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
