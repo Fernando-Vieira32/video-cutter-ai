@@ -5,7 +5,7 @@ gem "rails", "~> 8.0.5"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.7"
 # json 3 dropped JSON.generate's quirks_mode, which ActiveSupport 8.0 still passes
 # when it serializes the session cookie.
 gem "json", "~> 2.7"
